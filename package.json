@@ -1,0 +1,22 @@
+{
+  "name": "give-gitignore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "bin": {
+    "give-gitignore": "dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "generate a README.md file for your node.js projects",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
