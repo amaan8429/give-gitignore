@@ -1,22 +1,26 @@
 {
   "name": "give-gitignore",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist/**/*"
+    "dist"
   ],
   "bin": {
     "give-gitignore": "dist/index.js"
   },
   "scripts": {
+    "build": "tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": "generate a README.md file for your node.js projects",
+  "license": "MIT",
+  "description": "generate a gitignore file for your node.js projects",
   "devDependencies": {
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
     "typescript": "^5.4.5"
   }
 }
