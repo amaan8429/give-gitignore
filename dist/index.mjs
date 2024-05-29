@@ -1,27 +1,4 @@
 #! /usr/bin/env node
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -44,9 +21,9 @@ var __async = (__this, __arguments, generator) => {
 };
 
 // src/index.ts
-var import_fs = __toESM(require("fs"));
-var import_path = __toESM(require("path"));
-var import_readline = __toESM(require("readline"));
+import fs from "fs";
+import path from "path";
+import readline from "readline";
 
 // src/sample.ts
 var gitignoreContent = `# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
@@ -100,11 +77,11 @@ next-env.d.ts
 
 // src/index.ts
 var currentDir = process.cwd();
-var gitignorePath = import_path.default.join(currentDir, ".gitignore");
+var gitignorePath = path.join(currentDir, ".gitignore");
 function fileExists(filePath) {
   return __async(this, null, function* () {
     return new Promise((resolve) => {
-      import_fs.default.access(filePath, import_fs.default.constants.F_OK, (err) => {
+      fs.access(filePath, fs.constants.F_OK, (err) => {
         resolve(!err);
       });
     });
@@ -113,7 +90,7 @@ function fileExists(filePath) {
 function writeGitignoreFile(filePath, content) {
   return __async(this, null, function* () {
     return new Promise((resolve, reject) => {
-      import_fs.default.writeFile(filePath, content, (err) => {
+      fs.writeFile(filePath, content, (err) => {
         if (err) {
           reject(err);
         } else {
@@ -126,7 +103,7 @@ function writeGitignoreFile(filePath, content) {
 function createGitignoreFile(filePath, content) {
   return __async(this, null, function* () {
     if (yield fileExists(filePath)) {
-      const rl = import_readline.default.createInterface({
+      const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
       });
@@ -157,4 +134,4 @@ function createGitignoreFile(filePath, content) {
   });
 }
 createGitignoreFile(gitignorePath, gitignoreContent);
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.mjs.map
