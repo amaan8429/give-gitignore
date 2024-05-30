@@ -7,29 +7,21 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __copyProps = (to, from, except, desc) => {
-  if ((from && typeof from === "object") || typeof from === "function") {
+  if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, {
-          get: () => from[key],
-          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
-        });
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (
-  (target = mod != null ? __create(__getProtoOf(mod)) : {}),
-  __copyProps(
-    // If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod || !mod.__esModule
-      ? __defProp(target, "default", { value: mod, enumerable: true })
-      : target,
-    mod
-  )
-);
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -46,10 +38,7 @@ var __async = (__this, __arguments, generator) => {
         reject(e);
       }
     };
-    var step = (x) =>
-      x.done
-        ? resolve(x.value)
-        : Promise.resolve(x.value).then(fulfilled, rejected);
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
@@ -115,13 +104,9 @@ var gitignorePath = import_path.default.join(currentDir, ".gitignore");
 function fileExists(filePath) {
   return __async(this, null, function* () {
     return new Promise((resolve) => {
-      import_fs.default.access(
-        filePath,
-        import_fs.default.constants.F_OK,
-        (err) => {
-          resolve(!err);
-        }
-      );
+      import_fs.default.access(filePath, import_fs.default.constants.F_OK, (err) => {
+        resolve(!err);
+      });
     });
   });
 }
@@ -143,24 +128,23 @@ function createGitignoreFile(filePath, content) {
     if (yield fileExists(filePath)) {
       const rl = import_readline.default.createInterface({
         input: process.stdin,
-        output: process.stdout,
+        output: process.stdout
       });
       rl.question(
         "The .gitignore file already exists. Do you want to overwrite it? (yes/no): ",
-        (answer) =>
-          __async(this, null, function* () {
-            rl.close();
-            if (answer.toLowerCase() === "no") {
-              console.log("The .gitignore file was not overwritten.");
-            } else {
-              try {
-                yield writeGitignoreFile(filePath, content);
-                console.log("The .gitignore file has been overwritten.");
-              } catch (err) {
-                console.error("Error writing the .gitignore file:", err);
-              }
+        (answer) => __async(this, null, function* () {
+          rl.close();
+          if (answer.toLowerCase() !== "yes") {
+            console.log("The .gitignore file was not overwritten.");
+          } else {
+            try {
+              yield writeGitignoreFile(filePath, content);
+              console.log("The .gitignore file has been overwritten.");
+            } catch (err) {
+              console.error("Error writing the .gitignore file:", err);
             }
-          })
+          }
+        })
       );
     } else {
       try {
