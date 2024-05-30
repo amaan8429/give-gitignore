@@ -67,7 +67,7 @@ async function createGitignoreFile(
       "The .gitignore file already exists. Do you want to overwrite it? (yes/no): ",
       async (answer) => {
         rl.close();
-        if (answer.toLowerCase() === "no") {
+        if (answer.toLowerCase() !== "yes") {
           console.log("The .gitignore file was not overwritten.");
         } else {
           try {
